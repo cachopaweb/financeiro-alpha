@@ -2,8 +2,8 @@ POST http://localhost:3000/despesas
 Content-Type: application/json
 
 {
-    "nome": "ENERGIA UNIDADE 1",
-    "valorEstimado": 2600
+    "nome": "ENERGIA UNIDADE 2",
+    "valorEstimado": 2400
 }
 
 ###
@@ -18,11 +18,28 @@ Content-Type: application/json
 
 {
     "obs": "teste de lancamento 2",
-    "despesaId": 2,
-    "valor": 2900
+    "despesaId": 4,
+    "valor": 2200,    
+    "userId": 1
 }
 
 ###
 
 GET http://localhost:3000/lancamentos
 Content-Type: application/json
+
+###
+
+GET http://localhost:3000/usuarios
+Content-Type: application/json
+
+###
+POST http://localhost:3000/usuarios
+Content-Type: application/json
+
+{
+   "nome": "Iago",
+   "email": "usuario@email.com",
+   "senha": "1234",
+   "funId": 1
+}

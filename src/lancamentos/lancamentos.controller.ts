@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Post } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { LancamentoDto } from 'src/dtos/lancamentos.dto';
 
@@ -18,7 +18,7 @@ export class LancamentosController {
 
     @Post()
     async create(@Body() body: LancamentoDto) {
-        const { valor, obs, despesaId } = body;
+        const { valor, obs, despesaId, userId } = body;
         try {
             const despesa = await this.prisma.despesas.findUnique({
                 where: {
@@ -26,11 +26,21 @@ export class LancamentosController {
                 }
             })
 
+            console.log(despesa)
+
+            if(!despesa){
+                throw new Error('Despesa não encontrada')
+            }
+
             const funcionario = await this.prisma.funcionarios.findUnique({
                 where: {
-                    id: 1
+                    id: userId
                 }
             })
+
+            if (!funcionario){
+                throw new Error('Usuario não encontrado')
+            }
 
             const diferenca = (parseFloat(despesa.estimado.toString()) - valor);
             const lancamentos = await this.prisma.lancamentos.create({
@@ -46,7 +56,7 @@ export class LancamentosController {
             });
             return lancamentos;
         } catch (error) {
-            throw new Error(error)
+            throw new HttpException(String(error), HttpStatus.BAD_REQUEST);
         }
     }
 }

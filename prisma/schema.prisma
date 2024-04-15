@@ -25,6 +25,8 @@ model Usuarios {
   id          Int          @id @default(autoincrement())
   nome        String
   usu_fun     Int
+  email       String
+  senha       String       
   funcionario Funcionarios @relation(fields: [usu_fun], references: [id])
 }
 
@@ -45,7 +47,7 @@ model Lancamentos {
   diferenca   Decimal
   obs         String?
   dataCriacao DateTime     @default(now())
-  funId       Int
+  funId       Int          
   despesaId   Int
   funCriou    Funcionarios @relation(fields: [funId], references: [id])
   despesa     Despesas     @relation(fields: [despesaId], references: [id])
