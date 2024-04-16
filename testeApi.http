@@ -18,9 +18,10 @@ Content-Type: application/json
 
 {
     "obs": "teste de lancamento 2",
-    "despesaId": 4,
+    "despesaId": 2,
     "valor": 2200,    
-    "userId": 1
+    "userId": 1,
+    "empresaId": 1
 }
 
 ###
@@ -43,3 +44,16 @@ Content-Type: application/json
    "senha": "1234",
    "funId": 1
 }
+
+###
+POST http://localhost:3000/empresas
+Content-Type: application/json
+
+{
+   "nome": "Empresas Teste1"
+}
+
+
+###
+GET http://localhost:3000/empresas
+Content-Type: application/json

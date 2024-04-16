@@ -17,4 +17,8 @@ export class LancamentoDto {
     @ApiProperty()
     @IsNotEmpty()
     userId: number;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    empresaId: number;
 }

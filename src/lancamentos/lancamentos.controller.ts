@@ -18,7 +18,7 @@ export class LancamentosController {
 
     @Post()
     async create(@Body() body: LancamentoDto) {
-        const { valor, obs, despesaId, userId } = body;
+        const { valor, obs, despesaId, userId, empresaId } = body;
         try {
             const despesa = await this.prisma.despesas.findUnique({
                 where: {
@@ -26,9 +26,7 @@ export class LancamentosController {
                 }
             })
 
-            console.log(despesa)
-
-            if(!despesa){
+            if (!despesa) {
                 throw new Error('Despesa não encontrada')
             }
 
@@ -38,8 +36,18 @@ export class LancamentosController {
                 }
             })
 
-            if (!funcionario){
+            if (!funcionario) {
                 throw new Error('Usuario não encontrado')
+            }
+
+            const empresa = await this.prisma.empresas.findUnique({
+                where: {
+                    id: empresaId
+                }
+            })
+
+            if (!empresa) {
+                throw new Error('Empresa não encontrada')
             }
 
             const diferenca = (parseFloat(despesa.estimado.toString()) - valor);
@@ -51,7 +59,8 @@ export class LancamentosController {
                     despesaId: despesa.id,
                     estimado: despesa.estimado,
                     funId: funcionario.id,
-                    diferenca
+                    diferenca,
+                    empresaId: empresa.id
                 }
             });
             return lancamentos;

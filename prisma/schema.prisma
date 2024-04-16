@@ -10,6 +10,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Empresas {
+  id          Int           @id @default(autoincrement())
+  nome        String
+  Lancamentos Lancamentos[]
+}
+
 model Funcionarios {
   id                Int           @id @default(autoincrement())
   nome              String
@@ -26,7 +32,7 @@ model Usuarios {
   nome        String
   usu_fun     Int
   email       String
-  senha       String       
+  senha       String
   funcionario Funcionarios @relation(fields: [usu_fun], references: [id])
 }
 
@@ -47,8 +53,10 @@ model Lancamentos {
   diferenca   Decimal
   obs         String?
   dataCriacao DateTime     @default(now())
-  funId       Int          
+  funId       Int
   despesaId   Int
+  empresaId   Int          @default(1)
   funCriou    Funcionarios @relation(fields: [funId], references: [id])
   despesa     Despesas     @relation(fields: [despesaId], references: [id])
+  empresa     Empresas     @relation(fields: [empresaId], references: [id])
 }
