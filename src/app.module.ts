@@ -8,7 +8,12 @@ import { EmpresasController } from './empresas/empresas.controller';
 
 @Module({
   imports: [],
-  controllers: [DespesasController, LancamentosController, UsuariosController, EmpresasController],
+  controllers: [
+    DespesasController,
+    LancamentosController,
+    UsuariosController,
+    EmpresasController
+  ],
   providers: [
     AppService,
     PrismaService,

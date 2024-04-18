@@ -50,7 +50,7 @@ POST http://localhost:3000/empresas
 Content-Type: application/json
 
 {
-   "nome": "Empresas Teste1"
+   "nome": "Empresas Teste2"
 }
 
 
