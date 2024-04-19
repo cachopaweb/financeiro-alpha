@@ -8,14 +8,13 @@ export class UsuariosController {
 
     @Post()
     async create(@Body() data: UsuarioDto){
-        const { email, nome, senha, funId } = data;
+        const { email, nome, senha } = data;
         try {
             const usuario = this.prisma.usuarios.create({
                 data: {
                     nome, 
                     email,                   
-                    senha,
-                    usu_fun: funId                   
+                    senha                   
                 }
             });
 

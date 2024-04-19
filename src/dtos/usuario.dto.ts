@@ -14,8 +14,4 @@ export class UsuarioDto{
     @ApiProperty()
     @IsNotEmpty()
     senha: string;
-
-    @ApiProperty()
-    @IsNotEmpty()
-    funId: number;
 }
