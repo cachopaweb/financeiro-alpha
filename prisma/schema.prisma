@@ -32,6 +32,7 @@ model Usuarios {
   nome        String
   email       String
   senha       String
+  admin       Boolean
 }
 
 model Despesas {
