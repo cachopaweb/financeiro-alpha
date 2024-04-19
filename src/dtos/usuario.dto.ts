@@ -14,4 +14,8 @@ export class UsuarioDto{
     @ApiProperty()
     @IsNotEmpty()
     senha: string;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    admin: boolean;
 }
