@@ -10,7 +10,7 @@ export class LoginController {
     async login(@Body() body: LoginDto) {
         const { email, senha } = body;
         try {
-            const usuario = this.prisma.usuarios.findFirstOrThrow({
+            const usuario = this.prisma.usuarios.findFirst({
                 where: {
                     email,
                     senha
