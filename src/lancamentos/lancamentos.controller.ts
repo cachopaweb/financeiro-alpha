@@ -4,7 +4,7 @@ import { PrismaService } from 'src/database/prisma.service';
 import { LancamentoDto } from 'src/dtos/lancamentos.dto';
 
 @Controller('lancamentos')
-@ApiTags('lancamentos')
+@ApiTags('Lancamentos')
 export class LancamentosController {
     constructor(private prisma: PrismaService) { }
 

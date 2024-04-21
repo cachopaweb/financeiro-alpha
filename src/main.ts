@@ -13,7 +13,7 @@ async function bootstrap() {
     .setTitle('Financeiro Alpha')
     .setDescription('Projeto para movimentações no Sistema Alpha')
     .setVersion('1.0')
-    .addTag('Movimentações')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
