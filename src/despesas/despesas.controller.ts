@@ -35,7 +35,7 @@ export class DespesasController {
     }
 
     @Delete()
-    async delete(@Param() id: number) {
+    async delete(@Param('id') id: number) {
         try {
             const despesa = await this.prisma.despesas.delete({
                 where: {
