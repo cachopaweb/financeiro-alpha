@@ -5,16 +5,15 @@ import { DespesasController } from './despesas/despesas.controller';
 import { LancamentosController } from './lancamentos/lancamentos.controller';
 import { UsuariosController } from './usuarios/usuarios.controller';
 import { EmpresasController } from './empresas/empresas.controller';
-import { LoginController } from './login/login.controller';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [],
+  imports: [AuthModule],
   controllers: [
     DespesasController,
     LancamentosController,
     UsuariosController,
     EmpresasController,
-    LoginController
   ],
   providers: [
     AppService,

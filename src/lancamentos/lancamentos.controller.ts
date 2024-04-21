@@ -1,8 +1,10 @@
 import { Body, Controller, Get, HttpException, HttpStatus, Post } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { PrismaService } from 'src/database/prisma.service';
 import { LancamentoDto } from 'src/dtos/lancamentos.dto';
 
 @Controller('lancamentos')
+@ApiTags('lancamentos')
 export class LancamentosController {
     constructor(private prisma: PrismaService) { }
 

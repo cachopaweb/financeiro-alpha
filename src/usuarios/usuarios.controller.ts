@@ -1,21 +1,26 @@
-import { Controller, Get, Post , Body} from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { PrismaService } from 'src/database/prisma.service';
 import { UsuarioDto } from 'src/dtos/usuario.dto';
 
 @Controller('usuarios')
+@ApiTags('usuarios')
 export class UsuariosController {
-    constructor(private prisma: PrismaService){}
+    constructor(private prisma: PrismaService) { }
 
     @Post()
-    async create(@Body() data: UsuarioDto){
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth()
+    async create(@Body() data: UsuarioDto) {
         const { email, nome, senha, admin } = data;
         try {
             const usuario = this.prisma.usuarios.create({
                 data: {
-                    nome, 
-                    email,                   
+                    nome,
+                    email,
                     senha,
-                    admin                   
+                    admin
                 }
             });
 
@@ -26,7 +31,9 @@ export class UsuariosController {
     }
 
     @Get()
-    async getUsuarios(){
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth()
+    async getUsuarios() {
         try {
             const usuarios = this.prisma.usuarios.findMany();
             return usuarios;
