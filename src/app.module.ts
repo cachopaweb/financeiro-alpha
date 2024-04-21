@@ -5,6 +5,7 @@ import { DespesasController } from './despesas/despesas.controller';
 import { LancamentosController } from './lancamentos/lancamentos.controller';
 import { UsuariosController } from './usuarios/usuarios.controller';
 import { EmpresasController } from './empresas/empresas.controller';
+import { LoginController } from './login/login.controller';
 
 @Module({
   imports: [],
@@ -12,7 +13,8 @@ import { EmpresasController } from './empresas/empresas.controller';
     DespesasController,
     LancamentosController,
     UsuariosController,
-    EmpresasController
+    EmpresasController,
+    LoginController
   ],
   providers: [
     AppService,
