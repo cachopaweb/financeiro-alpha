@@ -13,8 +13,6 @@ export class UsuariosController {
     constructor(private prisma: PrismaService) { }
 
     @Post()
-    @UseGuards(JwtAuthGuard)
-    @ApiBearerAuth()
     async create(@Body() data: UsuarioDto) {
         const { email, nome, senha, admin } = data;
         const hashedPassword = await bcrypt.hash(
