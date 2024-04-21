@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { DespesaDto } from '../dtos/despesa.dto';
 
@@ -18,12 +18,28 @@ export class DespesasController {
 
     @Post()
     async create(@Body() body: DespesaDto) {
+        const { nome, valorEstimado, usuarioCriou } = body;
         try {
             const despesa = await this.prisma.despesas.create({
                 data: {
-                    nome: body.nome,
-                    estimado: body.valorEstimado,
-                    funCriou: 1
+                    nome,
+                    valorEstimado,
+                    usuarioCriou
+                }
+            });
+
+            return despesa;
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
+
+    @Delete()
+    async delete(@Param() id: number) {
+        try {
+            const despesa = await this.prisma.despesas.delete({
+                where: {
+                    id
                 }
             });
 

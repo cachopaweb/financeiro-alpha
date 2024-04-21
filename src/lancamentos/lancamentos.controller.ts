@@ -50,14 +50,14 @@ export class LancamentosController {
                 throw new Error('Empresa não encontrada')
             }
 
-            const diferenca = (parseFloat(despesa.estimado.toString()) - valor);
+            const diferenca = (parseFloat(despesa.valorEstimado.toString()) - valor);
             const lancamentos = await this.prisma.lancamentos.create({
                 data: {
                     nome: despesa.nome,
                     real: valor,
                     obs,
                     despesaId: despesa.id,
-                    estimado: despesa.estimado,
+                    estimado: despesa.valorEstimado,
                     funId: funcionario.id,
                     diferenca,
                     empresaId: empresa.id

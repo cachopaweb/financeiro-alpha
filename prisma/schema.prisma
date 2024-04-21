@@ -28,20 +28,20 @@ model Funcionarios {
 }
 
 model Usuarios {
-  id          Int          @id @default(autoincrement())
-  nome        String
-  email       String
-  senha       String
-  admin       Boolean
+  id    Int     @id @default(autoincrement())
+  nome  String
+  email String
+  senha String
+  admin Boolean
 }
 
 model Despesas {
-  id          Int           @id @default(autoincrement())
-  nome        String
-  estimado    Decimal
-  dataCriacao DateTime      @default(now())
-  funCriou    Int
-  Lancamentos Lancamentos[]
+  id            Int           @id @default(autoincrement())
+  nome          String
+  valorEstimado Decimal
+  dataCriacao   DateTime      @default(now())
+  usuarioCriou  Int
+  Lancamentos   Lancamentos[]
 }
 
 model Lancamentos {

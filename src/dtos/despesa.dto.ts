@@ -9,4 +9,8 @@ export class DespesaDto {
     @ApiProperty()
     @IsNotEmpty()
     valorEstimado: number;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    usuarioCriou: number;
 }
