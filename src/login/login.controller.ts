@@ -1,4 +1,4 @@
-import { Body, Controller } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
 import { LoginDto } from 'src/dtos/login.dto';
 
@@ -6,6 +6,7 @@ import { LoginDto } from 'src/dtos/login.dto';
 export class LoginController {
     constructor(private prisma: PrismaService) { }
 
+    @Post()
     async login(@Body() body: LoginDto) {
         const { email, senha } = body;
         try {
