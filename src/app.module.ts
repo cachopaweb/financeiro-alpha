@@ -6,6 +6,7 @@ import { LancamentosController } from './lancamentos/lancamentos.controller';
 import { UsuariosController } from './usuarios/usuarios.controller';
 import { EmpresasController } from './empresas/empresas.controller';
 import { AuthModule } from './auth/auth.module';
+import { DespesasService } from './despesas/despesas.service';
 
 @Module({
   imports: [AuthModule],
@@ -18,6 +19,7 @@ import { AuthModule } from './auth/auth.module';
   providers: [
     AppService,
     PrismaService,
+    DespesasService,
   ],
 })
 export class AppModule { }
