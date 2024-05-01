@@ -41,7 +41,7 @@ model Despesas {
   valorEstimado               Decimal
   dataCriacao                 DateTime                      @default(now())
   usuarioCriou                Int
-  dataPrevisao                Int
+  dataPrevisao                Int                           @default(0)
   Lancamentos_receita_despesa Lancamentos_receita_despesa[]
 }
 
@@ -51,7 +51,7 @@ model Receitas {
   valorEstimado Decimal
   dataCriacao   DateTime
   usuarioCriou  Int
-  dataPrevisao  Int
+  dataPrevisao  Int      @default(0)
 }
 
 model Lancamentos_receita_despesa {
