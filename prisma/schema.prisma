@@ -12,50 +12,72 @@ datasource db {
 }
 
 model Empresas {
-  id          Int           @id @default(autoincrement())
-  nome        String
-  Lancamentos Lancamentos[]
+  id                          Int                           @id @default(autoincrement())
+  nome                        String
+  Lancamentos_receita_despesa Lancamentos_receita_despesa[]
 }
 
 model Funcionarios {
-  id                Int           @id @default(autoincrement())
+  id                Int     @id @default(autoincrement())
   nome              String
   funcao            String
   salario           Decimal
   temValeTransporte Boolean
   chavePix          String
-  Lancamentos       Lancamentos[]
 }
 
 model Usuarios {
-  id    Int     @id @default(autoincrement())
-  nome  String
-  email String
-  senha String
-  admin Boolean
+  id                          Int                           @id @default(autoincrement())
+  nome                        String
+  email                       String
+  senha                       String
+  admin                       Boolean
+  Lancamentos_receita_despesa Lancamentos_receita_despesa[]
 }
 
 model Despesas {
-  id            Int           @id @default(autoincrement())
-  nome          String
-  valorEstimado Decimal
-  dataCriacao   DateTime      @default(now())
-  usuarioCriou  Int
-  Lancamentos   Lancamentos[]
+  id                          Int                           @id @default(autoincrement())
+  nome                        String
+  valorEstimado               Decimal
+  dataCriacao                 DateTime                      @default(now())
+  usuarioCriou                Int
+  dataPrevisao                Int
+  Lancamentos_receita_despesa Lancamentos_receita_despesa[]
 }
 
-model Lancamentos {
-  id          Int          @id @default(autoincrement())
-  nome        String
-  estimado    Decimal
-  real        Decimal
-  diferenca   Decimal
-  obs         String?
-  dataCriacao DateTime     @default(now())
-  funId       Int
-  despesaId   Int
-  empresaId   Int          @default(1)
-  funCriou    Funcionarios @relation(fields: [funId], references: [id])
-  despesa     Despesas     @relation(fields: [despesaId], references: [id])
-  empresa     Empresas     @relation(fields: [empresaId], references: [id])
+model Receitas {
+  id            Int      @id @default(autoincrement())
+  nome          String
+  valorEstimado Decimal
+  dataCriacao   DateTime
+  usuarioCriou  Int
+  dataPrevisao  Int
+}
+
+model Lancamentos_receita_despesa {
+  id           Int           @id @default(autoincrement())
+  nome         String
+  estimado     Decimal
+  real         Decimal
+  diferenca    Decimal
+  obs          String?
+  dataCriacao  DateTime      @default(now())
+  usuId        Int
+  despesaId    Int
+  empresaId    Int           @default(1)
+  tipo         String
+  movId        Int
+  usuCriou     Usuarios      @relation(fields: [usuId], references: [id])
+  despesa      Despesas      @relation(fields: [despesaId], references: [id])
+  empresa      Empresas      @relation(fields: [empresaId], references: [id])
+  movimentacao Movimentacoes @relation(fields: [movId], references: [id])
+}
+
+model Movimentacoes {
+  id                          Int                           @id @default(autoincrement())
+  descricao                   String
+  credito                     Decimal
+  debito                      Decimal
+  dataHora                    DateTime
+  Lancamentos_receita_despesa Lancamentos_receita_despesa[]
 }

@@ -21,4 +21,12 @@ export class LancamentoDto {
     @ApiProperty()
     @IsNotEmpty()
     empresaId: number;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    tipo: string;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    dataHora: Date;
 }
