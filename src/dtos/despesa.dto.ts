@@ -13,4 +13,10 @@ export class DespesaDto {
     @ApiProperty()
     @IsNotEmpty()
     usuarioCriou: number;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    dataPrevisao: number;
+
+
 }

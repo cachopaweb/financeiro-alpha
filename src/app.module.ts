@@ -6,9 +6,9 @@ import { LancamentosController } from './lancamentos/lancamentos.controller';
 import { UsuariosController } from './usuarios/usuarios.controller';
 import { EmpresasController } from './empresas/empresas.controller';
 import { AuthModule } from './auth/auth.module';
-import { MovimentacoesController } from './movimentacoes/movimentacoes.controller';
 import { MovimentacoesService } from './movimentacoes/movimentacoes.service';
 import { MovimentacoesController } from './movimentacoes/movimentacoes.controller';
+import { DespesasService } from './despesas/despesas.service';
 
 @Module({
   imports: [AuthModule],
@@ -23,6 +23,7 @@ import { MovimentacoesController } from './movimentacoes/movimentacoes.controlle
     AppService,
     PrismaService,
     MovimentacoesService,
+    DespesasService,
   ],
 })
 export class AppModule { }
