@@ -17,6 +17,4 @@ export class DespesaDto {
     @ApiProperty()
     @IsNotEmpty()
     dataPrevisao: number;
-
-
 }

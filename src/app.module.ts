@@ -9,6 +9,8 @@ import { AuthModule } from './auth/auth.module';
 import { MovimentacoesService } from './movimentacoes/movimentacoes.service';
 import { MovimentacoesController } from './movimentacoes/movimentacoes.controller';
 import { DespesasService } from './despesas/despesas.service';
+import { ReceitasController } from './receitas/receitas.controller';
+import { ReceitasService } from './receitas/receitas.service';
 
 @Module({
   imports: [AuthModule],
@@ -18,12 +20,14 @@ import { DespesasService } from './despesas/despesas.service';
     UsuariosController,
     EmpresasController,
     MovimentacoesController,
+    ReceitasController,
   ],
   providers: [
     AppService,
     PrismaService,
     MovimentacoesService,
     DespesasService,
+    ReceitasService,
   ],
 })
 export class AppModule { }

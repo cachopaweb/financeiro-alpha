@@ -13,7 +13,7 @@ export const jwtSecret = 'ipec2024alfa';
     PassportModule,
     JwtModule.register({
       secret: jwtSecret,
-      signOptions: { expiresIn: '5m' }, // e.g. 30s, 7d, 24h
+      signOptions: { expiresIn: '24h' }, // e.g. 30s, 7d, 24h
     }),
   ],
   controllers: [AuthController],

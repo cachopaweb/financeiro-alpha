@@ -1,5 +1,6 @@
-import { Body, Controller, Get, HttpException, HttpStatus, Post } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Get, HttpException, HttpStatus, Post, UseGuards } from '@nestjs/common';
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { PrismaService } from 'src/database/prisma.service';
 import { LancamentoDto } from 'src/dtos/lancamentos.dto';
 import { MovimentacoesService } from 'src/movimentacoes/movimentacoes.service';
@@ -12,6 +13,8 @@ export class LancamentosController {
         private movimentacoesService: MovimentacoesService
     ) { }
 
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth()
     @Get()
     async getLancamentos() {
         try {
@@ -22,6 +25,8 @@ export class LancamentosController {
         }
     }
 
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth()
     @Post()
     async create(@Body() lancamento: LancamentoDto) {
         const { tipo } = lancamento;
