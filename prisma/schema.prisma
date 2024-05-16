@@ -20,6 +20,7 @@ model Empresas {
   id                          Int                           @id @default(autoincrement())
   nome                        String
   Lancamentos_receita_despesa Lancamentos_receita_despesa[]
+  Movimentacoes               Movimentacoes[]
 }
 
 model Funcionarios {
@@ -82,5 +83,7 @@ model Movimentacoes {
   credito                     Decimal
   debito                      Decimal
   dataHora                    DateTime
+  empresaId                   Int                           @default(1)
+  empresa                     Empresas                      @relation(fields: [empresaId], references: [id])
   Lancamentos_receita_despesa Lancamentos_receita_despesa[]
 }
