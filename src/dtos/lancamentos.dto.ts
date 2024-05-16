@@ -12,7 +12,7 @@ export class LancamentoDto {
 
     @ApiProperty()
     @IsNotEmpty()
-    despesaId: number;
+    recDesId: number;
 
     @ApiProperty()
     @IsNotEmpty()

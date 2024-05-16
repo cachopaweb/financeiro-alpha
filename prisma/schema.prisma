@@ -6,6 +6,10 @@ generator client {
   previewFeatures = ["driverAdapters"]
 }
 
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -36,13 +40,12 @@ model Usuarios {
 }
 
 model Despesas {
-  id                          Int                           @id @default(autoincrement())
-  nome                        String
-  valorEstimado               Decimal
-  dataCriacao                 DateTime                      @default(now())
-  usuarioCriou                Int
-  dataPrevisao                Int                           @default(0)
-  Lancamentos_receita_despesa Lancamentos_receita_despesa[]
+  id            Int      @id @default(autoincrement())
+  nome          String
+  valorEstimado Decimal
+  dataCriacao   DateTime @default(now())
+  usuarioCriou  Int
+  dataPrevisao  Int      @default(0)
 }
 
 model Receitas {
@@ -63,12 +66,11 @@ model Lancamentos_receita_despesa {
   obs          String?
   dataCriacao  DateTime      @default(now())
   usuId        Int
-  despesaId    Int
+  recDesId     Int
   empresaId    Int           @default(1)
   tipo         String
   movId        Int
   usuCriou     Usuarios      @relation(fields: [usuId], references: [id])
-  despesa      Despesas      @relation(fields: [despesaId], references: [id])
   empresa      Empresas      @relation(fields: [empresaId], references: [id])
   movimentacao Movimentacoes @relation(fields: [movId], references: [id])
 }
