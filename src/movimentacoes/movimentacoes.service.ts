@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/database/prisma.service';
-import { MovimentacoesDto } from 'src/dtos/movimentacoes.dto';
+import { MovimentacoesDto, MovimentacoesQuery } from 'src/dtos/movimentacoes.dto';
 
 @Injectable()
 export class MovimentacoesService {
@@ -23,10 +23,41 @@ export class MovimentacoesService {
         }
     }
 
-    async getMovimentacoes() {
+    async getMovimentacoes(movimentacoesQuery: MovimentacoesQuery) {
+        const { empresaId, dataInicial, dataFinal } = movimentacoesQuery;
+
         try {
-            const movimentacoes = this.prisma.movimentacoes.findMany();
-            return movimentacoes;
+            if (empresaId && !dataInicial && !dataFinal) {
+                const movimentacoes = this.prisma.movimentacoes.findMany({
+                    where: {
+                        empresaId: parseInt(empresaId.toString()),
+                    }
+                });
+                return movimentacoes;
+            }
+            if (!empresaId && dataInicial && dataFinal) {
+                const movimentacoes = this.prisma.movimentacoes.findMany({
+                    where: {
+                        dataHora: {
+                            gte: new Date(dataInicial),
+                            lt: new Date(dataFinal),
+                        }
+                    }
+                });
+                return movimentacoes;
+            }
+            if (empresaId && dataInicial && dataFinal) {
+                const movimentacoes = this.prisma.movimentacoes.findMany({
+                    where: {
+                        empresaId: parseInt(empresaId.toString()),
+                        dataHora: {
+                            gte: new Date(dataInicial),
+                            lt: new Date(dataFinal),
+                        }
+                    }
+                });
+                return movimentacoes;
+            }
         } catch (error) {
             throw new Error(String(error));
         }

@@ -1,5 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, isDate } from "class-validator";
+import { Transform } from "class-transformer";
+import { IsDate, IsNotEmpty, IsNumber, IsOptional, isDate } from "class-validator";
 
 export class MovimentacoesDto {
     @ApiProperty()
@@ -17,4 +18,23 @@ export class MovimentacoesDto {
     @ApiProperty()
     @IsNotEmpty()
     dataHora: Date;
+}
+
+export class MovimentacoesQuery {
+    @ApiProperty()
+    @IsOptional()
+    @Transform(date => new Date(date.value))
+    dataInicial?: Date;
+
+    @ApiProperty()
+    @IsOptional()
+    @IsDate()
+    @Transform(date => new Date(date.value))
+    dataFinal?: Date;
+
+    @ApiProperty()
+    @IsOptional()
+    @IsNumber()
+    @Transform(emp => parseInt(emp.value))
+    empresaId: number;
 }
