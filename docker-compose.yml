@@ -9,7 +9,7 @@ services:
     network_mode: host
     restart: always
     ports:
-      - 3000:80
+      - 3333:8080
     # depends_on:
     #  - postgres
     env_file:
