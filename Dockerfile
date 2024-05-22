@@ -12,7 +12,7 @@ RUN npm install
 
 COPY . .
 
-RUN npm run migrate:reset
+# RUN npm run migrate:reset
 RUN npm run prisma:generate
 RUN npm run build
 
