@@ -12,8 +12,6 @@ RUN npm install
 
 COPY . .
 
-
-RUN npm run migrate:dev:create
 RUN npm run build
 
 FROM node:16.13.0
@@ -24,4 +22,4 @@ COPY --from=builder /app/dist ./dist
 
 EXPOSE 3333
 
-ENTRYPOINT [ "npm", "run", "start:prod" ]
+ENTRYPOINT [ "npm", "run", "start:migrate:prod" ]
