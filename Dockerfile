@@ -13,7 +13,7 @@ RUN npm install
 COPY . .
 
 RUN npm run migrate:reset
-# RUN npm run migrate deploy
+RUN npm run migrate deploy
 RUN npm run build
 
 FROM node:16.13.0
