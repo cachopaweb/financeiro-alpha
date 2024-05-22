@@ -12,7 +12,7 @@ RUN npm install
 
 COPY . .
 
-RUN npm run migrate:dev
+RUN npm run prisma:generate
 RUN npm run build
 
 FROM node:16.13.0
