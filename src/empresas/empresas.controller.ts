@@ -13,7 +13,7 @@ export class EmpresasController {
         try {
             const empresa = this.prisma.empresas.create({
                 data: {
-                    nome: body.nome
+                    nome: body.nome.toUpperCase()
                 }
             });
             return empresa;

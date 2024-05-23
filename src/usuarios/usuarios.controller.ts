@@ -22,7 +22,7 @@ export class UsuariosController {
         try {
             const usuario = this.prisma.usuarios.create({
                 data: {
-                    nome,
+                    nome: nome.toUpperCase(),
                     email,
                     senha: hashedPassword,
                     admin

@@ -18,6 +18,10 @@ export class MovimentacoesDto {
     @ApiProperty()
     @IsNotEmpty()
     dataHora: Date;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    empresaId: number;
 }
 
 export class MovimentacoesQuery {

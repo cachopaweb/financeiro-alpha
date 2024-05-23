@@ -68,7 +68,8 @@ export class LancamentosController {
             dataHora,
             credito: 0,
             debito: valor,
-            descricao: `DES - ${despesa.nome}`
+            descricao: `DES - ${despesa.nome}`,
+            empresaId: empresa.id,
         })
 
         const diferenca = (parseFloat(despesa.valorEstimado.toString()) - valor);
@@ -115,7 +116,8 @@ export class LancamentosController {
             dataHora,
             credito: valor,
             debito: 0,
-            descricao: `REC - ${receita.nome}`
+            descricao: `REC - ${receita.nome}`,
+            empresaId: empresa.id
         })
 
         const diferenca = (parseFloat(receita.valorEstimado.toString()) - valor);

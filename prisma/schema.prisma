@@ -21,6 +21,8 @@ model Empresas {
   nome                        String
   Lancamentos_receita_despesa Lancamentos_receita_despesa[]
   Movimentacoes               Movimentacoes[]
+  Despesas                    Despesas[]
+  Receitas                    Receitas[]
 }
 
 model Funcionarios {
@@ -48,6 +50,8 @@ model Despesas {
   dataCriacao   DateTime @default(now())
   usuarioCriou  Int
   dataPrevisao  Int      @default(0)
+  empresaId     Int      @default(1)
+  empresa       Empresas @relation(fields: [empresaId], references: [id])
 }
 
 model Receitas {
@@ -57,6 +61,8 @@ model Receitas {
   dataCriacao   DateTime @default(now())
   usuarioCriou  Int
   dataPrevisao  Int      @default(0)
+  empresaId     Int      @default(1)
+  empresa       Empresas @relation(fields: [empresaId], references: [id])
 }
 
 model Lancamentos_receita_despesa {

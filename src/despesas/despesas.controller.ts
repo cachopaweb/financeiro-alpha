@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
-import { DespesaDto } from '../dtos/despesa.dto';
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, Query, UseGuards } from '@nestjs/common';
+import { DespesaDto, DespesaQuery } from '../dtos/despesa.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { DespesasService } from './despesas.service';
+import { Transform } from 'class-transformer';
 
 @Controller('despesas')
 @ApiTags('Despesas')
@@ -12,8 +13,8 @@ export class DespesasController {
     @Get()
     @UseGuards(JwtAuthGuard)
     @ApiBearerAuth()
-    getDespesas() {
-        return this.despesaService.getDespesas();
+    getDespesas(@Query() despesaQuery: DespesaQuery) {
+        return this.despesaService.getDespesas(despesaQuery);
     }
 
     @Post()
@@ -23,10 +24,11 @@ export class DespesasController {
         return this.despesaService.create(body);
     }
 
-    @Delete()
+    @Delete(':id')
     @UseGuards(JwtAuthGuard)
     @ApiBearerAuth()
-    delete(@Param('id') id: number) {
+    @HttpCode(204)
+    delete(@Param('id') id: string) {
         return this.despesaService.delete(id);
     }
 }

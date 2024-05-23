@@ -1,14 +1,47 @@
 import { Injectable } from '@nestjs/common';
+import { Despesas } from '@prisma/client';
 import { PrismaService } from 'src/database/prisma.service';
-import { DespesaDto } from 'src/dtos/despesa.dto';
+import { DespesaDto, DespesaQuery } from 'src/dtos/despesa.dto';
 
 @Injectable()
 export class DespesasService {
     constructor(private prisma: PrismaService) { }
 
-    async getDespesas() {
+    async getDespesas(despesaQuery: DespesaQuery) {
+        const { nome, empresaId } = despesaQuery;
         try {
-            const despesas = await this.prisma.despesas.findMany();
+            if (nome && !empresaId) {
+                // const despesas = await this.prisma.$queryRaw<Despesas[]>`SELECT * FROM DESPESAS WHERE nome like '%${nome}%'`;
+                const despesas = await this.prisma.despesas.findMany({
+                    where: {
+                        nome: {
+                            contains: nome.toUpperCase()
+                        }
+                    }
+                })
+                return despesas;
+            }
+            if (empresaId && !nome) {
+                const despesas = await this.prisma.despesas.findMany({
+                    where: {
+                        empresaId: parseInt(empresaId.toString())
+                    }
+                })
+                return despesas;
+            }
+
+            if (empresaId && nome) {
+                const despesas = await this.prisma.despesas.findMany({
+                    where: {
+                        empresaId: parseInt(empresaId.toString()),
+                        nome: {
+                            contains: nome.toUpperCase()
+                        }
+                    }
+                })
+                return despesas;
+            }
+            const despesas = await this.prisma.despesas.findMany()
             return despesas;
         } catch (error) {
             throw new Error(error);
@@ -16,14 +49,15 @@ export class DespesasService {
     }
 
     async create(despesa: DespesaDto) {
-        const { nome, valorEstimado, usuarioCriou, dataPrevisao } = despesa;
+        const { nome, valorEstimado, usuarioCriou, dataPrevisao, empresaId } = despesa;
         try {
             const despesa = await this.prisma.despesas.create({
                 data: {
-                    nome,
+                    nome: nome.toUpperCase(),
                     valorEstimado,
                     usuarioCriou,
-                    dataPrevisao
+                    dataPrevisao,
+                    empresaId
                 }
             });
 
@@ -35,14 +69,12 @@ export class DespesasService {
 
     async delete(id: string) {
         try {
-            const idInt = parseInt(id);
             const despesa = await this.prisma.despesas.delete({
                 where: {
-                    id: idInt
+                    id: parseInt(id)
                 }
             });
-
-            return despesa;
+            return 204
         } catch (error) {
             throw new Error(error);
         }

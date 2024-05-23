@@ -1,5 +1,6 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { Transform } from 'class-transformer';
 
 export class ReceitaDto {
     @ApiProperty()
@@ -17,4 +18,21 @@ export class ReceitaDto {
     @ApiProperty()
     @IsNotEmpty()
     dataPrevisao: number;
+
+    @ApiProperty()
+    @IsNotEmpty()
+    empresaId: number;
+}
+
+
+export class ReceitaQuery {
+    @ApiProperty()
+    @IsOptional()
+    nome?: string;
+
+    @ApiProperty()
+    @IsOptional()
+    @IsNumber()
+    @Transform(emp => parseInt(emp.value))
+    empresaId: number;
 }

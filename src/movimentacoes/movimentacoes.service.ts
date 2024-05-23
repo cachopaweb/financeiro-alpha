@@ -7,14 +7,15 @@ export class MovimentacoesService {
     constructor(private readonly prisma: PrismaService) { }
 
     async insert(mov: MovimentacoesDto) {
-        const { descricao, credito, debito, dataHora } = mov;
+        const { descricao, credito, debito, dataHora, empresaId } = mov;
         try {
             const movimento = this.prisma.movimentacoes.create({
                 data: {
-                    descricao,
+                    descricao: descricao.toUpperCase(),
                     credito,
                     debito,
-                    dataHora
+                    dataHora,
+                    empresaId
                 }
             })
             return movimento;
@@ -27,10 +28,6 @@ export class MovimentacoesService {
         const { empresaId, dataInicial, dataFinal } = movimentacoesQuery;
 
         try {
-            if (!empresaId && !dataInicial && !dataFinal) {
-                const movimentacoes = this.prisma.movimentacoes.findMany();
-                return movimentacoes;
-            }
             if (empresaId && !dataInicial && !dataFinal) {
                 const movimentacoes = this.prisma.movimentacoes.findMany({
                     where: {
@@ -62,6 +59,8 @@ export class MovimentacoesService {
                 });
                 return movimentacoes;
             }
+            const movimentacoes = this.prisma.movimentacoes.findMany();
+            return movimentacoes;
         } catch (error) {
             throw new Error(String(error));
         }

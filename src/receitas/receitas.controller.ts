@@ -1,6 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Post, Query, UseGuards } from '@nestjs/common';
 import { ReceitasService } from './receitas.service';
-import { ReceitaDto } from 'src/dtos/receita.dto';
+import { ReceitaDto, ReceitaQuery } from 'src/dtos/receita.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
@@ -12,8 +12,8 @@ export class ReceitasController {
     @Get()
     @UseGuards(JwtAuthGuard)
     @ApiBearerAuth()
-    async getReceitas() {
-        return this.receitasService.getReceitas();
+    async getReceitas(@Query() receitaQuery: ReceitaQuery) {
+        return this.receitasService.getReceitas(receitaQuery);
     }
 
     @Post()
@@ -23,10 +23,11 @@ export class ReceitasController {
         return this.receitasService.createReceita(receita);
     }
 
-    @Delete()
+    @Delete(':id')
     @UseGuards(JwtAuthGuard)
     @ApiBearerAuth()
-    delete(@Param('id') id: number) {
+    @HttpCode(204)
+    delete(@Param('id') id: string) {
         return this.receitasService.delete(id);
     }
 }
