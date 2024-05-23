@@ -33,11 +33,12 @@ export class DespesasService {
         }
     }
 
-    async delete(id: number) {
+    async delete(id: string) {
         try {
+            const idInt = parseInt(id);
             const despesa = await this.prisma.despesas.delete({
                 where: {
-                    id
+                    id: idInt
                 }
             });
 

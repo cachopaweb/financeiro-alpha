@@ -30,4 +30,18 @@ export class ReceitasService {
             throw new Error(String(error))
         }
     }
+
+    async delete(id: number) {
+        try {
+            const receita = await this.prisma.receitas.delete({
+                where: {
+                    id
+                }
+            });
+
+            return receita;
+        } catch (error) {
+            throw new Error(error);
+        }
+    }
 }
